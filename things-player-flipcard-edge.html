@@ -97,17 +97,15 @@ Example:
         is: 'things-player-flipcard-edge',
 
         properties: {
-          axis: {
-            notify: true
-          }
+          axis: String
         },
 
         listeners: {
-          'card.tap': 'onCardTapped',
-          'keydown': 'onCardTapped'
+          'card.tap': '_onCardTapped',
+          'keydown': '_onCardTapped'
         },
 
-        onCardTapped: function(e) {
+        _onCardTapped: function(e) {
           this.next()
         },
 

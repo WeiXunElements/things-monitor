@@ -104,7 +104,7 @@ Example:
           },
           backfaceVisibility: {
             notify: true,
-            observer: 'onBackfaceVisibility'
+            observer: '_onBackfaceVisibility'
           },
           rotation: {
             value: 0
@@ -112,13 +112,13 @@ Example:
         },
 
         listeners: {
-          'carousel.tap': 'onCarouselTapped',
-          'keydown': 'onKeydown',
-          'iron-resize': 'onIronResize'
+          'carousel.tap': '_onCarouselTapped',
+          'keydown': '_onKeydown',
+          'iron-resize': '_onIronResize'
         },
 
         observers: [
-          'onPropertyChanged(axis)'
+          '_onPropertyChanged(axis)'
         ],
 
         attached: function() {
@@ -128,7 +128,7 @@ Example:
         ready: function() {
           var self = this
           this._observer = Polymer.dom(this.$.carousel).observeNodes(function(info) {
-            self.onContentChanged()
+            self._onContentChanged()
           })
         },
 
@@ -136,19 +136,19 @@ Example:
           Polymer.dom(this.$.carousel).observeNodes(this._observer);
         },
 
-        onIronResize: function(e) {
-          this.buildCarousel()
+        _onIronResize: function(e) {
+          this._buildCarousel()
         },
 
-        onContentChanged: function(info) {
-          this.buildCarousel()
+        _onContentChanged: function(info) {
+          this._buildCarousel()
         },
 
-        onPropertyChanged: function(axis) {
-          this.buildCarousel()
+        _onPropertyChanged: function(axis) {
+          this._buildCarousel()
         },
 
-        buildCarousel: function() {
+        _buildCarousel: function() {
           var panel, angle, i;
           var panels = this.getContentChildren()
 
@@ -179,12 +179,12 @@ Example:
           this._transform();
         },
 
-        onCarouselTapped: function(e) {
+        _onCarouselTapped: function(e) {
 
           this.next()
         },
 
-        onKeydown: function(e) {
+        _onKeydown: function(e) {
 
           switch(e.keyCode) {
           case 38: // arrow up
@@ -206,7 +206,7 @@ Example:
           }
         },
 
-        onBackfaceVisibility: function(after) {
+        _onBackfaceVisibility: function(after) {
           this.toggleClass('backface-invisible', true, this.$.carousel)
         },
 
