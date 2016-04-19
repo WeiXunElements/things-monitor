@@ -1,0 +1,110 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+An element providing a solution to no problem in particular.
+
+Example:
+
+    <things-player-flipcard axis="y" tabindex="0" focus>
+      <div page front>A</div>
+      <div page back>B</div>
+    </things-player-flipcard>
+
+@demo demo/index-player-flipcard.html
+@hero hero.svg
+-->
+
+<dom-module id="things-player-flipcard">
+  <template>
+    <style>
+    :host {
+      display: block;
+      width: 100%;
+      height: 100%;
+      -webkit-perspective: 1600px;
+              perspective: 1600px;
+    }
+
+    #card{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      -webkit-transform-style: preserve-3d;
+              transform-style: preserve-3d;
+      -webkit-transition: all 1.5s ease-in-out;
+              transition: all 1.5s ease-in-out;
+    }
+
+    #card > ::content [front], ::content [back]{
+      margin: 0;
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+              backface-visibility: hidden;
+    }
+
+/*    #card > ::content [front]{
+      background: red;
+    }
+*/
+    #card > ::content [back]{
+      /*background: blue;*/
+      -webkit-transform: rotateY(180deg);
+              transform: rotateY(180deg);
+    }
+
+    :host[flipped] div{
+      -webkit-transform: rotateY(180deg);
+              transform: rotateY(180deg);
+    }
+
+    :host([axis="x"]) #card > ::content [back]{
+      background: blue;
+      -webkit-transform: rotateX(180deg);
+              transform: rotateX(180deg);
+    }
+
+    :host([axis="x"][flipped]) div{
+      -webkit-transform: rotateX(180deg);
+              transform: rotateX(180deg);
+    }
+    </style>
+
+    <div id="card">
+      <content select="[front]"></content>
+      <content select="[back]"></content>
+    </div>
+
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'things-player-flipcard',
+
+        properties: {
+          axis: {
+            notify: true
+          }
+        },
+
+        listeners: {
+          'card.tap': 'onCardTapped',
+          'keydown': 'onCardTapped'
+        },
+
+        onCardTapped: function(e) {
+          this.next()
+        },
+
+        next: function() {
+          this.toggleAttribute('flipped')
+        }
+      });
+    })();
+  </script>
+</dom-module>

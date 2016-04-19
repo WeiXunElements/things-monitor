@@ -1,0 +1,232 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
+
+<!--
+An element providing a solution to no problem in particular.
+
+Example:
+
+    <things-player-carousel axis="y" backface-visibility=false tabindex="0" focus>
+      <div page>A</div>
+      <div page>B</div>
+      <div page>C</div>
+      <div page>D</div>
+    </things-player-carousel>
+
+@demo demo/index-player-carousel.html
+@hero hero.svg
+-->
+
+<dom-module id="things-player-carousel">
+  <template>
+    <style>
+    :host {
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      /*margin: 0 auto 40px;*/
+      margin: 0 auto 0px;
+      /*border: 1px solid #CCC;*/
+      -webkit-perspective: 1200px;
+         -moz-perspective: 1200px;
+           -o-perspective: 1200px;
+              perspective: 1200px;
+    }
+
+    #carousel {
+      width: 100%;
+      height: 100%;
+      /*margin: 40px auto 40px;*/
+      margin: 0px auto 0px;
+
+      position: absolute;
+      -webkit-transform-style: preserve-3d;
+         -moz-transform-style: preserve-3d;
+           -o-transform-style: preserve-3d;
+              transform-style: preserve-3d;
+      -webkit-transition: -webkit-transform 1.5s;
+         -moz-transition: -moz-transform 1.5s;
+           -o-transition: -o-transform 1.5s;
+              transition: transform 1.5s;
+    }
+
+    #carousel.backface-invisible ::content * {
+      -webkit-backface-visibility: hidden;
+         -moz-backface-visibility: hidden;
+           -o-backface-visibility: hidden;
+              backface-visibility: hidden;
+    }
+
+    #carousel ::content *  {
+      display: block;
+      position: absolute;
+      /*width: 186px;*/
+      /*height: 116px;*/
+      width: 100%;
+      height: 100%;
+      /*left: 10px;*/
+      /*top: 10px;*/
+      border: 1px solid rgba(0,0,0,.2);
+      /*line-height: 116px;*/
+      /*font-size: 80px;*/
+      font-weight: bold;
+      /*color: white;*/
+      text-align: center;
+      -webkit-transition: opacity 1.5s, -webkit-transform 1.5s;
+         -moz-transition: opacity 1.5s, -moz-transform 1.5s;
+           -o-transition: opacity 1.5s, -o-transform 1.5s;
+              transition: opacity 1.5s, transform 1.5s;
+    }
+
+    </style>
+
+    <div id="carousel">
+      <content select="[page]"></content>
+    </div>
+
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'things-player-carousel',
+
+        behaviors: [
+          Polymer.IronResizableBehavior
+        ],
+
+        properties: {
+          axis: {
+            notify: true
+          },
+          backfaceVisibility: {
+            notify: true,
+            observer: 'onBackfaceVisibility'
+          },
+          rotation: {
+            value: 0
+          }
+        },
+
+        listeners: {
+          'carousel.tap': 'onCarouselTapped',
+          'keydown': 'onKeydown',
+          'iron-resize': 'onIronResize'
+        },
+
+        observers: [
+          'onPropertyChanged(axis)'
+        ],
+
+        attached: function() {
+          this.async(this.notifyResize, 1);
+        },
+
+        ready: function() {
+          var self = this
+          this._observer = Polymer.dom(this.$.carousel).observeNodes(function(info) {
+            self.onContentChanged()
+          })
+        },
+
+        detached: function() {
+          Polymer.dom(this.$.carousel).observeNodes(this._observer);
+        },
+
+        onIronResize: function(e) {
+          this.buildCarousel()
+        },
+
+        onContentChanged: function(info) {
+          this.buildCarousel()
+        },
+
+        onPropertyChanged: function(axis) {
+          this.buildCarousel()
+        },
+
+        buildCarousel: function() {
+          var panel, angle, i;
+          var panels = this.getContentChildren()
+
+          this.isHorizontal = this.axis === 'y'
+
+          this.panelCount = panels.length
+
+          this.panelSize = this.$.carousel[ this.isHorizontal ? 'offsetWidth' : 'offsetHeight' ] || '640';
+          this.rotateFn = this.isHorizontal ? 'rotateY' : 'rotateX';
+          this.theta = 360 / (this.panelCount || 1);
+
+          // do some trig to figure out how big the carousel
+          // is in 3D space
+          this.radius = Math.round( ( this.panelSize / 2) / Math.tan( Math.PI / (this.panelCount || 1) ) );
+
+          for ( i = 0; i < this.panelCount; i++ ) {
+            panel = panels[i];
+            angle = this.theta * i;
+            panel.style.opacity = 1;
+
+            // panel.style.backgroundColor = 'hsla(' + angle + ', 100%, 50%, 0.8)';
+            panel.style.backgroundColor = 'black'
+            this.transform(this.rotateFn + '(' + angle + 'deg) translateZ(' + this.radius + 'px)', panel)
+          }
+
+          // adjust rotation so panels are always flat
+          this.rotation = Math.round( this.rotation / this.theta ) * this.theta;
+          this._transform();
+        },
+
+        onCarouselTapped: function(e) {
+
+          this.next()
+        },
+
+        onKeydown: function(e) {
+
+          switch(e.keyCode) {
+          case 38: // arrow up
+            this.axis = 'x'
+            this.next()
+            break;
+          case 39: // arrow right
+            this.axis = 'y'
+            this.next()
+            break;
+          case 40: // arrow down
+            this.axis = 'x'
+            this.previous()
+            break;
+          case 37: // arrow left
+            this.axis = 'y'
+            this.previous()
+            break;
+          }
+        },
+
+        onBackfaceVisibility: function(after) {
+          this.toggleClass('backface-invisible', true, this.$.carousel)
+        },
+
+        _transform: function() {
+          // push the carousel back in 3D space,
+          // and rotate it
+          this.transform('translateZ(-' + this.radius + 'px) ' + this.rotateFn + '(' + this.rotation + 'deg)', this.$.carousel)
+        },
+
+        previous: function() {
+          this.rotation += this.theta;
+          this._transform();
+        },
+
+        next: function() {
+          this.rotation -= this.theta;
+          this._transform();
+        }
+      });
+
+    })();
+  </script>
+</dom-module>
