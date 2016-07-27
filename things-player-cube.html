@@ -172,6 +172,10 @@ Example:
       Polymer({
         is: 'things-player-cube',
 
+        hostAttributes: {
+          tabindex: 0
+        },
+
         properties: {
           side: {
             notify: true,
