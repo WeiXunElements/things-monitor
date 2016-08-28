@@ -156,8 +156,10 @@ Example:
 
           // do some trig to figure out how big the carousel
           // is in 3D space
-          this.radius = Math.round( ( this.panelSize / 2) / Math.tan( Math.PI / (this.panelCount || 1) ) );
-
+          this.radius = Math.round(
+            (this.panelSize / 2) / Math.tan(Math.PI / (this.panelCount < 2 ? 2 : this.panelCount))
+          );
+          
           for ( i = 0; i < this.panelCount; i++ ) {
             panel = panels[i];
             angle = this.theta * i;
@@ -165,6 +167,7 @@ Example:
 
             // panel.style.backgroundColor = 'hsla(' + angle + ', 100%, 50%, 0.8)';
             panel.style.backgroundColor = 'black'
+  
             this.transform(this.rotateFn + '(' + angle + 'deg) translateZ(' + this.radius + 'px)', panel)
           }
 
