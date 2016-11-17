@@ -27,19 +27,19 @@ Example:
       @apply(--layout-wrap);
     }
 
-    :host ::content * {
+    :host ::content > * {
       width:33.3%;
     }
 
-    :host[column="2"] ::content * {
+    :host[column="2"] ::content > * {
       width:50%;
     }
 
-    :host[column="3"] ::content * {
+    :host[column="3"] ::content > * {
       width:33.3%;
     }
 
-    :host[column="4"] ::content * {
+    :host[column="4"] ::content > * {
       width:25%;
     }
 
