@@ -15,12 +15,54 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <title>things-player-grid Demo</title>
     <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
     <link rel="import" href="../things-player-grid.html">
+    <style>
+    html,body,things-player-grid{
+      height:100%
+    }
+    things-player-grid[column="2"]{
+      background-color:#efefef
+    }
+    things-player-grid[column="3"]{
+      background-color:#ccc
+    }
+    things-player-grid[column="4"]{
+      background-color:#aaa
+    }
+    things-player-grid *{
+      border:1px solid #333;
+      border-width:0 0 1px 1px;
+      position:relative;
+      margin-right:-1px
+    }
+    </style>
   </head>
   <body unresolved>
 
     <p>An example of <code>&lt;things-player-grid&gt;</code>:</p>
 
+    <things-player-grid column="2" tabindex="0" focus>
+      <div page>A</div>
+      <div page>B</div>
+      <div page>C</div>
+      <div page>D</div>
+      <div page>A</div>
+    </things-player-grid>
+
     <things-player-grid column="3" tabindex="0" focus>
+      <div page>A</div>
+      <div page>B</div>
+      <div page>C</div>
+      <div page>D</div>
+      <div page>A</div>
+      <div page>B</div>
+      <div page>C</div>
+    </things-player-grid>
+
+    <things-player-grid column="4" tabindex="0" focus>
+      <div page>A</div>
+      <div page>B</div>
+      <div page>C</div>
+      <div page>D</div>
       <div page>A</div>
       <div page>B</div>
       <div page>C</div>
