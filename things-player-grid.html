@@ -1,0 +1,79 @@
+<link rel="import" href="../polymer/polymer.html">
+<!-- <link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html"> -->
+
+<!--
+An element providing a solution to no problem in particular.
+
+Example:
+
+    <things-player-grid column="3" tabindex="0" focus>
+      <div page>A</div>
+      <div page>B</div>
+      <div page>C</div>
+      <div page>D</div>
+    </things-player-grid>
+
+@demo demo/index-player-grid.html
+@hero hero.svg
+-->
+
+<dom-module id="things-player-grid">
+  <template>
+    <style>
+    :host {
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      margin: 0 auto 0px;
+    }
+
+    #grid ::content * {
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 1px solid rgba(0,0,0,.2);
+      font-weight: bold;
+      text-align: center;
+    }
+
+    </style>
+
+    <content select="[page]"></content>
+
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'things-player-grid',
+
+        hostAttributes: {
+          tabindex: 0
+        },
+
+        behaviors: [
+          // Polymer.IronResizableBehavior
+        ],
+
+        properties: {
+        },
+
+        listeners: {
+          // 'iron-resize': '_onIronResize'
+        },
+
+        attached: function() {
+          // this.async(this.notifyResize, 1);
+        },
+
+        ready: function() {
+        }
+      });
+
+    })();
+  </script>
+</dom-module>
