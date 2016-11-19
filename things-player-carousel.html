@@ -159,7 +159,7 @@ Example:
           this.radius = Math.round(
             (this.panelSize / 2) / Math.tan(Math.PI / (this.panelCount < 2 ? 2 : this.panelCount))
           );
-          
+
           for ( i = 0; i < this.panelCount; i++ ) {
             panel = panels[i];
             angle = this.theta * i;
@@ -167,7 +167,7 @@ Example:
 
             // panel.style.backgroundColor = 'hsla(' + angle + ', 100%, 50%, 0.8)';
             panel.style.backgroundColor = 'black'
-  
+
             this.transform(this.rotateFn + '(' + angle + 'deg) translateZ(' + this.radius + 'px)', panel)
           }
 
@@ -211,6 +211,7 @@ Example:
           // push the carousel back in 3D space,
           // and rotate it
           this.transform('translateZ(-' + this.radius + 'px) ' + this.rotateFn + '(' + this.rotation + 'deg)', this.$.carousel)
+          this.fire('transform')
         },
 
         previous: function() {

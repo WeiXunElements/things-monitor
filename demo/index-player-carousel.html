@@ -28,6 +28,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </things-player-carousel>
 
     <script>
+    document.querySelector('things-player-carousel').addEventListener('transform', function (e) {
+      console.log(e.detail);
+    })
     </script>
 
   </body>

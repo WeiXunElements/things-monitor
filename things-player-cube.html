@@ -193,6 +193,7 @@ Example:
           if(before)
             this.removeAttribute('show-' + before)
           this.setAttribute('show-' + after, true)
+          this.fire('transform')
         },
 
         _onCubeTapped: function(e) {
