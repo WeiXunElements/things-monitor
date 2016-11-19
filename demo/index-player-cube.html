@@ -30,6 +30,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </things-player-cube>
 
     <script>
+    document.querySelector('things-player-cube').addEventListener('click', function(e) {
+      this.next()
+    })
+
+    document.querySelector('things-player-cube').addEventListener('keydown', function(e) {
+      switch(e.keyCode) {
+      case 38: // arrow up
+        this.axis = 'x'
+        this.next()
+        break;
+      case 39: // arrow right
+        this.axis = 'y'
+        this.next()
+        break;
+      case 40: // arrow down
+        this.axis = 'x'
+        this.previous()
+        break;
+      case 37: // arrow left
+        this.axis = 'y'
+        this.previous()
+        break;
+      }
+    })
+
+    document.querySelector('things-player-cube').addEventListener('transform', function (e) {
+      console.log(e.detail);
+    })
     </script>
 
   </body>

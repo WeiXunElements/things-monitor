@@ -88,9 +88,9 @@ Example:
           tabindex: 0
         },
 
-        behaviors: [
-          Polymer.IronResizableBehavior
-        ],
+        // behaviors: [
+        //   Polymer.IronResizableBehavior
+        // ],
 
         properties: {
           axis: {
@@ -105,19 +105,19 @@ Example:
           }
         },
 
-        listeners: {
-          'carousel.tap': '_onCarouselTapped',
-          'keydown': '_onKeydown',
-          'iron-resize': '_onIronResize'
-        },
+        // listeners: {
+          // 'carousel.tap': '_onCarouselTapped',
+          // 'keydown': '_onKeydown',
+        //   'iron-resize': '_onIronResize'
+        // },
 
         observers: [
           '_onPropertyChanged(axis)'
         ],
 
-        attached: function() {
-          this.async(this.notifyResize, 1);
-        },
+        // attached: function() {
+        //   this.async(this.notifyResize, 1);
+        // },
 
         ready: function() {
           var self = this
@@ -176,32 +176,32 @@ Example:
           this._transform();
         },
 
-        _onCarouselTapped: function(e) {
-
-          this.next()
-        },
-
-        _onKeydown: function(e) {
-
-          switch(e.keyCode) {
-          case 38: // arrow up
-            this.axis = 'x'
-            this.next()
-            break;
-          case 39: // arrow right
-            this.axis = 'y'
-            this.next()
-            break;
-          case 40: // arrow down
-            this.axis = 'x'
-            this.previous()
-            break;
-          case 37: // arrow left
-            this.axis = 'y'
-            this.previous()
-            break;
-          }
-        },
+        // _onCarouselTapped: function(e) {
+        //
+        //   this.next()
+        // },
+        //
+        // _onKeydown: function(e) {
+        //
+        //   switch(e.keyCode) {
+        //   case 38: // arrow up
+        //     this.axis = 'x'
+        //     this.next()
+        //     break;
+        //   case 39: // arrow right
+        //     this.axis = 'y'
+        //     this.next()
+        //     break;
+        //   case 40: // arrow down
+        //     this.axis = 'x'
+        //     this.previous()
+        //     break;
+        //   case 37: // arrow left
+        //     this.axis = 'y'
+        //     this.previous()
+        //     break;
+        //   }
+        // },
 
         _onBackfaceVisibility: function(after) {
           this.toggleClass('backface-invisible', true, this.$.carousel)

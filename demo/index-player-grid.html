@@ -70,6 +70,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </things-player-grid>
 
     <script>
+    document.querySelector('things-player-grid').addEventListener('transform', function (e) {
+      console.log(e.detail);
+    })
     </script>
 
   </body>

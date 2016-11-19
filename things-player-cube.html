@@ -184,10 +184,10 @@ Example:
           }
         },
 
-        listeners: {
-          'cube.tap': '_onCubeTapped',
-          'keydown': '_onCubeTapped'
-        },
+        // listeners: {
+        //   'cube.tap': '_onCubeTapped',
+        //   'keydown': '_onCubeTapped'
+        // },
 
         _onSideChanged: function(after, before) {
           if(before)
@@ -196,12 +196,16 @@ Example:
           this.fire('transform')
         },
 
-        _onCubeTapped: function(e) {
-          this.next()
-        },
+        // _onCubeTapped: function(e) {
+        //   this.next()
+        // },
 
         next: function() {
           this.side = ['front', 'back', 'right', 'left', 'top', 'bottom'][Math.floor(Math.random() * 6)]
+        },
+
+        previous: function() {
+          this.next()
         }
       });
     })();

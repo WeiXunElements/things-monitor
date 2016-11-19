@@ -60,22 +60,12 @@ Example:
           tabindex: 0
         },
 
-        behaviors: [
-          // Polymer.IronResizableBehavior
-        ],
-
-        properties: {
+        next: function() {
+          this.fire('transform')
         },
 
-        listeners: {
-          // 'iron-resize': '_onIronResize'
-        },
-
-        attached: function() {
-          // this.async(this.notifyResize, 1);
-        },
-
-        ready: function() {
+        previous: function() {
+          this.next()
         }
       });
 
