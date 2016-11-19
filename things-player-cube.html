@@ -184,21 +184,12 @@ Example:
           }
         },
 
-        // listeners: {
-        //   'cube.tap': '_onCubeTapped',
-        //   'keydown': '_onCubeTapped'
-        // },
-
         _onSideChanged: function(after, before) {
           if(before)
             this.removeAttribute('show-' + before)
           this.setAttribute('show-' + after, true)
           this.fire('transform')
         },
-
-        // _onCubeTapped: function(e) {
-        //   this.next()
-        // },
 
         next: function() {
           this.side = ['front', 'back', 'right', 'left', 'top', 'bottom'][Math.floor(Math.random() * 6)]
