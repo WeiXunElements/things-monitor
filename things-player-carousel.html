@@ -125,7 +125,7 @@ Example:
         },
 
         detached: function() {
-          Polymer.dom(this.$.carousel).observeNodes(this._observer);
+          Polymer.dom(this.$.carousel).unobserveNodes(this._observer);
         },
 
         _onIronResize: function(e) {
