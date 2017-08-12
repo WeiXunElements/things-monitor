@@ -1,7 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
 
 <!--
-An element providing a solution to no problem in particular.
+자식 컴포넌트중 맨앞 두개를 카드 양면에 배치하여 플립시키면서 디스플레이해주는 컴포넌트.
 
 Example:
 
@@ -36,8 +36,9 @@ Example:
               transition: all 1.5s ease-in-out;
     }
 
-    #card > ::content [front], ::content [back]{
+    #card > ::content [front], #card > ::content [back]{
       margin: 0;
+      background: white;
       display: block;
       position: absolute;
       width: 100%;
@@ -46,12 +47,7 @@ Example:
               backface-visibility: hidden;
     }
 
-/*    #card > ::content [front]{
-      background: red;
-    }
-*/
     #card > ::content [back]{
-      /*background: blue;*/
       -webkit-transform: rotateY(180deg);
               transform: rotateY(180deg);
     }
@@ -62,7 +58,6 @@ Example:
     }
 
     :host([axis="x"]) #card > ::content [back]{
-      background: blue;
       -webkit-transform: rotateX(180deg);
               transform: rotateX(180deg);
     }
