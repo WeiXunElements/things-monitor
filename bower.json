@@ -1,8 +1,8 @@
 {
   "name": "things-monitor",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "authors": [
-    "Hatio Lab. <heartyoh@hatiolab.com>"
+    "Shenzhen Weixun"
   ],
   "description": "An element providing a solution to no problem in particular.",
   "keywords": [
@@ -11,8 +11,6 @@
     "seed"
   ],
   "main": "things-monitor.html",
-  "license": "http://polymer.github.io/LICENSE.txt",
-  "homepage": "https://github.com/ThingsElements/things-monitor/",
   "ignore": [
     "/.*",
     "/test/"
